@@ -39,6 +39,12 @@ Table merchants {
   created_at varchar
 }
 
+Table categories [headercolor: #d35400] {
+  id int [primary key]
+  cat_name varchar
+  parent_id int
+}
+
 Table countries {
   code int [primary key]
   name varchar
@@ -48,6 +54,7 @@ Table countries {
 Ref {
   orders.user_id > users.id
 }
+
 Ref {
   order_items.order_id > orders.id
 }
@@ -58,6 +65,14 @@ Ref {
 
 Ref {
   products.merchant_id > merchants.id
+}
+
+Ref {
+  products.category_id > categories.id
+}
+
+Ref {
+  categories.parent_id > categories.id
 }
 
 Ref {
@@ -75,4 +90,5 @@ Ref {
 tablegroup product_group {
   products
   order_items
+  categories
 }
